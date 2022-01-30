@@ -1,0 +1,80 @@
+<link rel="stylesheet" href="style.css">
+
+<div class="display">
+    <img src="floors.png" style="width:50%">
+    <h1 id="page-name">Floors</h1>
+	<h2 id="floors-left">2 Floors Left to Climb!</h2>
+
+    <div class="field">
+        <label>
+            Daily floors goal: <input id="daily-floors" type="number" value="10" readOnly>
+        </label>
+    </div>
+
+    <div class="field">
+        <label>
+            Total floors climbed today: <input id="floors-today" type="number" value="0" readOnly>
+        </label>
+    </div>
+
+
+    <!--<p><button type="button" id="edit-button">Edit <img src="edit.png" width="12" height=auto></button></p>-->
+    <p><button type="button" id="back-button">Back</button></p>
+
+</div>
+
+<script>
+	const floorsToday = document.getElementById("floors-today");
+    const floorsLeftField = document.getElementById("floors-left");
+    const dailyFloorsField = document.getElementById("daily-floors");
+    const backButton = document.getElementById("back-button");
+    //const editButton = document.getElementById("edit-button");
+    let floorsCompleteFlag = false;
+
+	dailyFloorsField.setAttribute('value', localStorage.getItem("USER_LEVEL_GOAL"));
+	floorsLeftField.innerHTML = (dailyFloorsField.value) + " Floors Left to Climb!";
+	
+
+	if(localStorage.getItem("USER_LEVEL_GOAL")==null)
+	{
+		floorsToday.setAttribute('value', 0);
+		dailyFloorsField.setAttribute('value', 15);
+		floorsLeftField.innerHTML = "15 Floors Left to Climb!";
+	}
+
+    backButton.addEventListener("click",
+        function () {
+            window.location = "../GradientPage.html"
+        });
+
+    /*editButton.addEventListener("click",
+        function () {
+            if (editButton.innerHTML != "Done") {
+                floorsLeftField.readOnly = false;
+                floorsLeftField.style.backgroundColor = "#dddbdb";
+                dailyFloorsField.readOnly = false;
+                dailyFloorsField.style.backgroundColor = "#dddbdb";
+                editButton.innerHTML = "Done";
+            } else {
+                floorsLeftField.readOnly = true;
+                floorsLeftField.style.backgroundColor = "";
+                dailyFloorsField.readOnly = true;
+                dailyFloorsField.style.backgroundColor = "";
+                pillsTaken.style.backgroundColor = "";
+                editButton.innerHTML = "Edit" + ' <img src="edit.png" width="12" height=auto>';
+
+                if (floorsLeftField.value > dailyFloorsField.value) {
+                    window.alert("Please enter a valid number!");
+                }
+            }
+
+        });*/
+
+    if (floorsLeftField.value == 0) {
+        floorsCompleteFlag = true;
+    }
+
+    window.onload = function () {
+        localStorage.setItem("USER_FLOORS_STATUS", floorsCompleteFlag);
+    }
+</script>

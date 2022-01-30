@@ -1,0 +1,298 @@
+
+<link rel="stylesheet" href="index_css.css">
+
+<div class="display">
+  <img src="profile.png" alt="John" style="width:80%">
+  <h1 id="user-name">Jane Doe</h1>
+
+  <div class="field">
+    <label>
+      Age: <input id="user-age" type="number" value="22" readOnly>
+    </label>
+  </div>
+
+  <div class="field">
+    <label>
+      Height: <input id="user-height" type="number" value="173" readOnly>cm
+    </label>
+  </div>
+
+  <div class="field">
+    <label>
+      Weight: <input id="user-weight" type="number" value="66" readOnly>kg
+    </label>
+  </div>
+ 
+ <h2 id="med_number">Set your goals here!</h2>
+
+ <div class="field">
+    <label>
+      Daily steps: <input id="step-goal" type="number" value="1" readOnly>
+    </label>
+ </div>
+
+  <div class="field">
+    <label>
+      Daily levels: <input id="level-goal" type="number" value="1" readOnly>
+    </label>
+ </div>
+
+ <div class="field">
+    <label>
+      Daily water: <input id="water-goal" type="number" value="1" readOnly>
+    </label>
+ </div>
+
+  <p><button type="button" id="edit-button">Edit <img src="edit.png" 
+		       width="12" 
+     		       height=auto></button></p>
+
+  <p><button type="button" id="back-button">Back</button></p>
+
+</div>
+
+<script>
+const nameField = document.getElementById("user-name");
+const ageField = document.getElementById("user-age");
+const heightField = document.getElementById("user-height");
+const weightField = document.getElementById("user-weight");
+
+const stepsField = document.getElementById("step-goal");
+const levelsField = document.getElementById("level-goal");
+const waterField = document.getElementById("water-goal");
+const backButton = document.getElementById("back-button");
+const editButton = document.getElementById("edit-button");
+
+let userStepGoal = stepsField.value;
+let userLevelGoal = levelsField.value;
+let userWaterGoal = waterField.value;
+
+stepsField.setAttribute('value', localStorage.getItem("USER_STEP_GOAL"));
+levelsField.setAttribute('value', localStorage.getItem("USER_LEVEL_GOAL"));
+waterField.setAttribute('value', localStorage.getItem("USER_WATER_GOAL"));
+
+//=====================================================================================defaults begin==========================================================
+if(localStorage.getItem("USER_WATER_GOAL")==null)
+{
+	localStorage.setItem("USER_WATER_GOAL", 10);
+	localStorage.setItem("USER_WATER_TAKEN", 0);
+	waterField.setAttribute('value', localStorage.getItem("USER_WATER_GOAL"));
+}
+
+if(localStorage.getItem("USER_LEVEL_GOAL")==null)
+{
+	localStorage.setItem("USER_LEVEL_GOAL", 15);
+	levelsField.setAttribute('value', localStorage.getItem("USER_LEVEL_GOAL"));
+}
+
+if(localStorage.getItem("USER_STEP_GOAL")==null)
+{
+	localStorage.setItem("USER_STEP_GOAL", 500);
+	stepsField.setAttribute('value', localStorage.getItem("USER_STEP_GOAL"));
+}
+
+if(localStorage.getItem("USER_TOTAL_PILLS")==null)
+{
+	localStorage.setItem("USER_TOTAL_PILLS", 0);
+}
+if(localStorage.getItem("USER_DAILY_PILLS")==null)
+{
+	localStorage.setItem("USER_DAILY_PILLS", 0);
+}
+//======================================================================================defaults end==========================================================
+
+backButton.addEventListener("click", 
+function(){
+	window.location = "GradientPage.html";
+});
+
+editButton.addEventListener("click", 
+function() {
+	if(editButton.innerHTML != "Done")
+	{
+		stepsField.readOnly = false;
+		stepsField.style.backgroundColor = "#dddbdb";
+		levelsField.readOnly = false;
+		levelsField.style.backgroundColor = "#dddbdb";
+		waterField.readOnly = false;
+		waterField.style.backgroundColor = "#dddbdb";
+
+		nameField.contentEditable = true;
+		nameField.style.backgroundColor = "#dddbdb";
+		ageField.readOnly = false;
+		ageField.style.backgroundColor = "#dddbdb";
+		heightField.readOnly = false;
+		heightField.style.backgroundColor = "#dddbdb";
+		weightField.readOnly = false;
+		weightField.style.backgroundColor = "#dddbdb";
+
+		editButton.innerHTML = "Done";
+	}
+	else
+	{
+		stepsField.readOnly = true;
+		stepsField.style.backgroundColor = "";
+		levelsField.readOnly = true;
+		levelsField.style.backgroundColor = "";
+		waterField.readOnly = true;
+		waterField.style.backgroundColor = "";
+
+		nameField.contentEditable = false;
+		nameField.style.backgroundColor = "";
+		ageField.readOnly = true;
+		ageField.style.backgroundColor = "";
+		heightField.readOnly = true;
+		heightField.style.backgroundColor = "";
+		weightField.readOnly = true;
+		weightField.style.backgroundColor = "";
+
+		userStepGoal = stepsField.value;
+		userLevelGoal = levelsField.value;
+		userWaterGoal = waterField.value;
+
+		localStorage.setItem("USER_STEP_GOAL", userStepGoal);
+		localStorage.setItem("USER_LEVEL_GOAL", userLevelGoal);
+		localStorage.setItem("USER_WATER_GOAL", userWaterGoal);
+
+		//==================================================================water error checking======================================================================
+		if(!(Number.isNaN(parseInt(waterField.value))))
+		{
+			if(parseInt(waterField.value) > 10)
+			{
+				window.alert("Please enter a number between 0 and 10 glasses of water!");
+				userWaterGoal = 0;
+				localStorage.setItem("USER_WATER_GOAL", userWaterGoal);
+				waterField.value = "0";
+			}
+			else if(parseInt(waterField.value) < 0)
+			{
+				window.alert("Please enter a number between 0 and 10 glasses of water!");
+				userWaterGoal = 0;
+				localStorage.setItem("USER_WATER_GOAL", userWaterGoal);
+				waterField.value = "0";
+			}
+		}
+		else if(Number.isNaN(parseInt(waterField.value)))
+		{
+			window.alert("The given water input is not an integer!");
+			userWaterGoal = 0;
+			localStorage.setItem("USER_WATER_GOAL", userWaterGoal);
+			waterField.value = "0";
+		}
+		//==================================================================water error checking======================================================================
+
+		//==================================================================steps error checking======================================================================
+		if(!(Number.isNaN(parseInt(stepsField.value))))
+		{
+			if(parseInt(stepsField.value) < 0)
+			{
+				window.alert("Please enter a positive number of steps!");
+				userStepGoal = 0;
+				localStorage.setItem("USER_STEP_GOAL", userStepGoal);
+				stepsField.value = "0";
+			}
+		}
+		else if(Number.isNaN(parseInt(stepsField.value)))
+		{
+			window.alert("The given steps input is not an integer!");
+			userStepGoal = 0;
+			localStorage.setItem("USER_STEP_GOAL", userStepGoal);
+			stepsField.value = "0";
+		}
+		//==================================================================step error checking======================================================================
+
+		//=================================================================floor error checking======================================================================
+		if(!(Number.isNaN(parseInt(levelsField.value))))
+		{
+			if(parseInt(levelsField.value) < 0)
+			{
+				window.alert("Please enter a positive number of floors!");
+				userLevelGoal = 0;
+				localStorage.setItem("USER_LEVEL_GOAL", userLevelGoal);
+				levelsField.value = "0";
+			}
+		}
+		else if(Number.isNaN(parseInt(levelsField.value)))
+		{
+			window.alert("The given floors input is not an integer!");
+			userLevelGoal = 0;
+			localStorage.setItem("USER_LEVEL_GOAL", userLevelGoal);
+			levelsField.value = "0";
+		}
+		//=================================================================floor error checking======================================================================
+
+		//==================================================================age error checking=======================================================================
+		if(!(Number.isNaN(parseInt(ageField.value))))
+		{
+			if(parseInt(ageField.value) < 0)
+			{
+				window.alert("Please enter a positive number for age!");
+				ageField.value = "0";
+			}
+			if(parseInt(ageField.value) > 150)
+			{
+				window.alert("Oh come on, you're not that old ;)");
+				ageField.value = "0";
+			}
+		}
+		else if(Number.isNaN(parseInt(ageField.value)))
+		{
+			window.alert("The given age input is not an integer!");
+			ageField.value = "0";
+		}
+		//==================================================================age error checking======================================================================
+
+		//================================================================height error checking=====================================================================
+		if(!(Number.isNaN(parseInt(heightField.value))))
+		{
+			if(parseInt(heightField.value) < 0)
+			{
+				window.alert("Please enter a positive number for height!");
+				heightField.value = "0";
+			}
+			if(parseInt(heightField.value) > 400)
+			{
+				window.alert("Oh come on, you're not that tall ;)");
+				heightField.value = "0";
+			}
+		}
+		else if(Number.isNaN(parseInt(heightField.value)))
+		{
+			window.alert("The given height input is not an integer!");
+			heightField.value = "0";
+		}
+		//================================================================height error checking====================================================================
+
+		//==================================================================weight error checking=======================================================================
+		if(!(Number.isNaN(parseInt(weightField.value))))
+		{
+			if(parseInt(weightField.value) < 0)
+			{
+				window.alert("Please enter a positive number for weight!");
+				weightField.value = "0";
+			}
+			if(parseInt(weightField.value) > 1000)
+			{
+				window.alert("Oh come on, you're not that heavy ;)");
+				weightField.value = "0";
+			}
+		}
+		else if(Number.isNaN(parseInt(weightField.value)))
+		{
+			window.alert("The given weight input is not an integer!");
+			weightField.value = "0";
+		}
+		//==================================================================weight error checking======================================================================
+		
+
+		editButton.innerHTML = "Edit" + ' <img src="edit.png" width="12" height=auto>';
+	}
+
+
+});
+
+window.onload = function(){
+	localStorage.setItem("USER_MED_STATUS", pillsCompleteFlag);
+}
+
+</script>

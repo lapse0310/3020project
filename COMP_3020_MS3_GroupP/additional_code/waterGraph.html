@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" href="graphStyle.css">
+<script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+</head>
+
+<body>
+    <div id = "centred" class = "display">
+        <h1 style="font-family: Arial, Helvetica, sans-serif;">Water</h1>
+        <span class = "display2" id="chartContainer1" ></span> 
+        <span class = "display2" id="chartContainer2" ></span>
+        <span class = "display2" id="chartContainer3" ></span>
+        <p><button type="button" id="back-button">Back</button></p>
+        <!-- <div id="chartContainer4" style="width: 50%; height: 300px;display: inline-block;"></div> -->
+    </div>
+<script>
+const backButton = document.getElementById("back-button");
+backButton.addEventListener("click", 
+function(){
+	window.location = "1218/water.html";
+});
+
+var chart = new CanvasJS.Chart("chartContainer1",
+    {
+        animationEnabled: true,
+        title: {
+            fontFamily: "Arial",
+            text: "This Week"
+        },
+        axisY: {
+            stripLines:[
+            {
+                
+                startValue:eval(localStorage.getItem("USER_WATER_GOAL")),
+                endValue:eval(localStorage.getItem("USER_WATER_GOAL"))-1,                
+                color:"#00FF00",
+                label : "Goal",
+                labelFontColor: "#000000",
+                labelBackgroundColor: "#FFFFFF"
+            }
+            ]
+        },
+        axisX: {
+            interval: 10,
+            maximum: 80
+        },
+        data: [
+        {
+            type: "column",
+            legendMarkerType: "triangle",
+            legendMarkerColor: "green",
+            color: "rgba(255,12,32,.3)",
+            showInLegend: false,
+            legendText: "Daywise",
+            dataPoints: [
+                { x: 10, y: 9, label: "Sun" },
+                { x: 20, y: 9, label: "Mon" },
+                { x: 30, y: 10, label: "Teus" },
+                { x: 40, y: 11, label: "Wed" },
+                { x: 50, y: 11, label: "Thurs" },
+                { x: 60, y: 13, label: "Fri" },
+                { x: 70, y: eval(localStorage.getItem("USER_WATER_TAKEN")), label: "Sat" },
+                { x: 80, y: 0, label: " " },
+            ]
+        },
+        ]
+        // title: {
+        //     text: "Overall Health"
+        // },
+        // axisX: {
+        //     interval: 10,
+        // },
+        // data: [
+        // {
+        //     type: "splineArea",
+        //     color: "rgba(255,12,32,.3)",
+        //     dataPoints: [
+        //         { x: new Date(2020, 01, 01), y: 888 },
+        //         { x: new Date(2020, 02, 01), y: 340 },
+        //         { x: new Date(2020, 03, 01), y: 694 },
+        //         { x: new Date(2020, 04, 01), y: 602 },
+        //         { x: new Date(2020, 05, 01), y: 239 },
+        //         { x: new Date(2020, 06, 01), y: 187 },
+        //         { x: new Date(2020, 07, 01), y: 214 },
+        //         { x: new Date(2020, 08, 01), y: 728 },
+        //         { x: new Date(2020, 09, 01), y: 483 },
+        //         { x: new Date(2020, 10, 01), y: 200 },
+        //         { x: new Date(2020, 11, 01), y: 284 },
+        //         { x: new Date(2020, 00, 01), y: 250}
+        //     ]
+        // },
+        // ]
+    });
+chart.render();
+
+var chart = new CanvasJS.Chart("chartContainer2",
+    {
+        animationEnabled: true,
+        title: {
+            fontFamily: "Arial",
+            text: "This Month"
+        },
+        axisY: {
+            stripLines:[
+            {
+                
+                startValue:eval(localStorage.getItem("USER_WATER_GOAL")),
+                endValue:eval(localStorage.getItem("USER_WATER_GOAL"))-1,                
+                color:"#00FF00",
+                label : "Goal",
+                labelFontColor: "#000000",
+                labelBackgroundColor: "#FFFFFF"
+            }
+            ]
+        },
+        axisX: {
+            interval: 1,
+            maximum: 34
+        },
+        data: [
+        {
+            type: "column",
+            legendMarkerType: "triangle",
+            legendMarkerColor: "green",
+            color: "rgba(255,12,32,.3)",
+            showInLegend: false,
+            legendText: "Monthwise",
+            dataPoints: [
+                { x: 1, y: 5, label: "1" },
+                { x: 2, y: 9, label: "2" },
+                { x: 3, y: 10, label: "3" },
+                { x: 4, y: 10, label: "4" },
+                { x: 5, y: 10, label: "5" },
+                { x: 6, y: 15, label: "6" },
+                { x: 7, y: 2, label: "7" },
+                { x: 8, y: 9, label: "8" },
+                { x: 9, y: 0, label: "9" },
+                { x: 10, y: 17, label: "10" },
+                { x: 11, y: 10, label: "11" },
+                { x: 12, y: 8, label: "12" },
+                { x: 13, y: 6, label: "13" },
+                { x: 14, y: 5, label: "14" },
+                { x: 15, y: 5, label: "15" },
+                { x: 16, y: 8, label: "16" },
+                { x: 17, y: 9, label: "17" },
+                { x: 18, y: 9, label: "18" },
+                { x: 19, y: 9, label: "19" },
+                { x: 20, y: 10, label: "20" },
+                { x: 21, y: 11, label: "21" },
+                { x: 22, y: 11, label: "22" },
+                { x: 23, y: 13, label: "23" },
+                { x: 24, y: eval(localStorage.getItem("USER_WATER_TAKEN")), label: "24" },
+                { x: 25, y: 0, label: "25" },
+                { x: 26, y: 0, label: "26" },
+                { x: 27, y: 0, label: "27" },
+                { x: 28, y: 0, label: "28" },
+                { x: 29, y: 0, label: "29" },
+                { x: 30, y: 0, label: "30" },
+                { x: 31, y: 0, label: "31" },
+                { x: 32, y: 0, label: " " },
+                { x: 33, y: 0, label: " " },
+                { x: 34, y: 0, label: " " },
+            ]
+        },
+        ]
+        // title: {
+        //     text: "Pie Chart",
+        // },
+        // data: [
+        // {
+        //     type: "pie",
+        //     showInLegend: true,
+        //     dataPoints: [
+        //         { y: 4181563, legendText: "Hydration", indexLabel: "Water" },
+        //         { y: 2175498, legendText: "Temperature", indexLabel: "98*" },
+        //         { y: 3125844, legendText: "Enerygy", indexLabel: "Energy level" },
+        //         { y: 1176121, legendText: "Calorie", indexLabel: "1600" },
+        //         { y: 1727161, legendText: "Sugar", indexLabel: "Sugar level" },
+        //         { y: 4303364, legendText: "Hygiene", indexLabel: "Hygiene" },
+        //         { y: 1717786, legendText: "Sleep", indexLabel: "6 hrs" }
+        //     ]
+        // },
+        // ]
+    });
+chart.render();
+
+var chart = new CanvasJS.Chart("chartContainer3",
+    {
+        animationEnabled: true,
+        title: {
+            fontFamily: "Arial",
+            text: "This Year"
+        },
+        axisY: {
+            stripLines:[
+            {
+                
+                startValue:eval(localStorage.getItem("USER_WATER_GOAL")),
+                endValue:eval(localStorage.getItem("USER_WATER_GOAL")-1),                
+                color:"#00FF00",
+                label : "Goal",
+                labelFontColor: "#000000",
+                labelBackgroundColor: "#FFFFFF"
+            }
+            ]
+        },
+        axisX: {
+            interval: 10,
+            maximum: 140
+        },
+        data: [
+        {
+            type: "column",
+            legendMarkerType: "triangle",
+            legendMarkerColor: "green",
+            color: "rgba(255,12,32,.3)",
+            showInLegend: false,
+            legendText: "Monthwise",
+            dataPoints: [
+                { x: 10, y: 10, label: "Jan" },
+                { x: 20, y: 5, label: "Feb" },
+                { x: 30, y: 15, label: "March" },
+                { x: 40, y: 12, label: "April" },
+                { x: 50, y: 10, label: "May" },
+                { x: 60, y: 9.5, label: "Jun" },
+                { x: 70, y: 8, label: "July" },
+                { x: 80, y: 4, label: "Aug" },
+                { x: 90, y: 6, label: "Sept" },
+                { x: 100, y: 10, label: "Oct" },
+                { x: 110, y: ((201 + eval(localStorage.getItem("USER_WATER_TAKEN")))/24.0), label: "Nov" },
+                { x: 120, y: 0, label: "Dec" },
+                { x: 130, y: 0, label: " " },
+                { x: 140, y: 0, label: " " }
+            ]
+        },
+        ]
+        // title: {
+        //     text: "Calories Burned"
+        // },
+        // axisX: {
+        //     valueFormatString: "MMM",
+        //     interval: 1,
+        //     intervalType: "month"
+        // },
+        // axisY: {
+        //     includeZero: false
+        // },
+        // data: [
+        // {
+        //   type: "line",
+        //   dataPoints: [
+        //       { x: new Date(2012, 00, 1), y: 4500 },
+        //       { x: new Date(2012, 01, 1), y: 4140 },
+        //       { x: new Date(2012, 02, 1), y: 5200, indexLabel: "highest", markerColor: "red", markerType: "triangle" },
+        //       { x: new Date(2012, 03, 1), y: 4600 },
+        //       { x: new Date(2012, 04, 1), y: 4500 },
+        //       { x: new Date(2012, 05, 1), y: 5000 },
+        //       { x: new Date(2012, 06, 1), y: 4800 },
+        //       { x: new Date(2012, 07, 1), y: 4800 },
+        //       { x: new Date(2012, 08, 1), y: 4100},
+        //       { x: new Date(2012, 09, 1), y: 500 },
+        //       { x: new Date(2012, 10, 1), y: 480, indexLabel: "lowest", markerColor: "DarkSlateGrey", markerType: "cross"},
+        //       { x: new Date(2012, 11, 1), y: 510 }
+        //     ]
+        // }
+        // ]
+    });
+chart.render();
+
+var chart = new CanvasJS.Chart("chartContainer4",
+    {
+        animationEnabled: true,
+        title: {
+            text: "Sleep"
+        },
+        axisY: {
+            stripLines:[
+            {
+                
+                startValue:localStorage.getItem("USER_WATER_GOAL"),
+                endValue:localStorage.getItem("USER_WATER_GOAL")-1,                
+                color:"#00FF00",
+                label : "Goal",
+                labelFontColor: "#000000",
+                labelBackgroundColor: "#FFFFFF"
+            }
+            ]
+        },
+        axisX: {
+            interval: 10,
+        },
+        data: [
+        {
+            type: "column",
+            legendMarkerType: "triangle",
+            legendMarkerColor: "green",
+            color: "rgba(255,12,32,.3)",
+            showInLegend: true,
+            legendText: "Monthwise",
+            dataPoints: [
+                { x: 10, y: 297, label: "Jan" },
+                { x: 20, y: 267, label: "Feb" },
+                { x: 30, y: 175, label: "March" },
+                { x: 40, y: 154, label: "April" },
+                { x: 50, y: 116, label: "May" },
+                { x: 60, y: 378, label: "Jun" },
+                { x: 70, y: 200, label: "July" },
+                { x: 80, y: 208, label: "Aug" },
+                { x: 90, y: 206, label: "Sept" },
+                { x: 100, y: 206, label: "Oct" },
+                { x: 110, y: 220, label: "Nov" },
+                { x: 120, y: 213, label: "Dec" }
+            ]
+        },
+        ]
+    });
+chart.render();
+</script>
+
+
+</body>
+
+</html>

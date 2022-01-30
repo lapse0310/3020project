@@ -1,0 +1,163 @@
+
+<link rel="stylesheet" href="medication_css.css">
+
+<div class="display">
+  <img src="meds_icon.png" style="width:50%">
+  <h1 id="page-name">Medication</h1>
+  <h2 id="med_number">Prescription 1 <med_arrow><img src="arrow_right_greyed.png" width="18" height=auto></med_arrow></h2>
+ 
+ <div class="field">
+    <label>
+      Total Pills Left: <input id="total-pills" type="number" value="15" readOnly>
+    </label>
+ </div>
+
+  <div class="field">
+    <label>
+      Daily Requirement: <input id="daily-pills" type="number" value="2" readOnly>
+    </label>
+ </div>
+
+  <p><button type="button" id="pills-button">Pills Taken Today!</button></p>
+  <p><button type="button" id="edit-button">Edit <img src="edit.png" 
+		       width="12" 
+     		       height=auto></button></p>
+  <p><button type="button" id="back-button">Back</button></p>
+
+</div>
+
+<script>
+	localStorage.setItem("USER_MED_STATUS", "false");
+const totalPillsField = document.getElementById("total-pills");
+const dailyPillsField = document.getElementById("daily-pills");
+const addPrescrip = document.getElementById("med_number");
+const backButton = document.getElementById("back-button");
+const editButton = document.getElementById("edit-button");
+const pillsTaken = document.getElementById("pills-button");
+
+let dailyPillsFieldNum = dailyPillsField.value;
+let totalPillsFieldNum = totalPillsField.value;
+
+let pillsCompleteFlag = false;
+
+totalPillsField.setAttribute('value', localStorage.getItem("USER_TOTAL_PILLS"));
+dailyPillsField.setAttribute('value', localStorage.getItem("USER_DAILY_PILLS"));
+
+if(localStorage.getItem("USER_TOTAL_PILLS")==null)
+{
+	totalPillsField.setAttribute('value', 0);
+	localStorage.setItem("USER_TOTAL_PILLS", 0);
+}
+if(localStorage.getItem("USER_DAILY_PILLS")==null)
+{
+	dailyPillsField.setAttribute('value', 0);
+	localStorage.setItem("USER_DAILY_PILLS", 0);
+}
+
+
+backButton.addEventListener("click", 
+function(){
+	window.location = "GradientPage.html"
+});
+
+pillsTaken.addEventListener("click",
+function() {
+	totalPillsField.value -= dailyPillsField.value;
+	totalPillsFieldNum = totalPillsField.value;
+	localStorage.setItem("USER_TOTAL_PILLS", totalPillsFieldNum);
+
+	//set the local storage variable to the new status of the flag
+	pillsCompleteFlag = true;
+	localStorage.setItem("USER_MED_STATUS", pillsCompleteFlag);
+	console.log(localStorage.getItem("USER_MED_STATUS"));
+
+	if(totalPillsField.value <= (dailyPillsField.value * 7))
+	{
+		window.alert("Refill your prescription this week!");
+	}
+	if(pillsCompleteFlag)
+	{
+		pillsTaken.style.backgroundColor = "#81DC8E";
+	}
+	else if(!pillsCompleteFlag)
+	{
+		pillsTaken.style.backgroundColor = "";
+	}
+});
+
+editButton.addEventListener("click", 
+function() {
+	if(editButton.innerHTML != "Done")
+	{
+		totalPillsField.readOnly = false;
+		totalPillsField.style.backgroundColor = "#dddbdb";
+		dailyPillsField.readOnly = false;
+		dailyPillsField.style.backgroundColor = "#dddbdb";
+		editButton.innerHTML = "Done";
+		addPrescrip.innerHTML = "Prescription 1" + '<img src="plus_icon.png" width="20" height=auto>';
+	}
+	else
+	{
+		totalPillsField.readOnly = true;
+		totalPillsField.style.backgroundColor = "";
+		dailyPillsField.readOnly = true;
+		dailyPillsField.style.backgroundColor = "";
+		pillsTaken.style.backgroundColor = "";
+
+		localStorage.setItem("USER_TOTAL_PILLS", totalPillsField.value);
+		localStorage.setItem("USER_DAILY_PILLS", dailyPillsField.value);
+
+		//==================================================================================error checking==============================================================
+		if(!(Number.isNaN(parseInt(totalPillsField.value))))
+		{
+			if(parseInt(totalPillsField.value) < 0)
+			{
+				window.alert("Please enter a positive number!");
+				totalPillsFieldNum = 0;
+				localStorage.setItem("USER_TOTAL_PILLS", totalPillsFieldNum);
+				totalPillsField.value = "0";
+			}
+		}
+		else if(Number.isNaN(parseInt(totalPillsField.value)))
+		{
+			window.alert("The given input is not an integer!");
+			totalPillsFieldNum = 0;
+			localStorage.setItem("USER_TOTAL_PILLS", totalPillsFieldNum);
+			totalPillsField.value = "0";
+		}
+
+		if(!(Number.isNaN(parseInt(dailyPillsField.value))))
+		{
+			if(parseInt(dailyPillsField.value) < 0)
+			{
+				window.alert("Please enter a positive number!");
+				dailyPillsFieldNum = 0;
+				localStorage.setItem("USER_DAILY_PILLS", dailyPillsFieldNum);
+				dailyPillsField.value = "0";
+			}
+		}
+		else if(Number.isNaN(parseInt(dailyPillsField.value)))
+		{
+			window.alert("The given input is not an integer!");
+			dailyPillsFieldNum = 0;
+			localStorage.setItem("USER_DAILY_PILLS", dailyPillsFieldNum);
+			dailyPillsField.value = "0";
+		}
+		//==================================================================================error checking==============================================================
+
+		editButton.innerHTML = "Edit" + ' <img src="edit.png" width="12" height=auto>';
+		addPrescrip.innerHTML = "Prescription 1" + ' <img src="arrow_right_greyed.png" width="18" height=auto>';
+
+		if(totalPillsField.value <= (dailyPillsField.value * 7))
+		{
+			window.alert("Refill your prescription this week!");
+		}
+	}
+
+});
+
+window.onload = function(){
+	localStorage.setItem("USER_MED_STATUS", pillsCompleteFlag);
+}
+
+</script>

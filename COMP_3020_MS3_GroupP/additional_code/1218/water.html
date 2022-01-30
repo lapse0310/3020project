@@ -1,0 +1,43 @@
+
+<link rel="stylesheet" href="Water.css">
+
+<div class="display">
+  <img class="pic" src="0.jpg" style="width:50%">
+  <h1 id="page-name">Water</h1>
+  <h2 id="glasses-left">2 Glasses of Water Left</h2>
+
+
+  <div class="field">
+    <label>
+      Daily Requirement: <input id="daily-pills" type="number" value="10" readOnly>
+    </label>
+ </div>
+
+ <div class="field">
+    <label>
+      Water Taken : <input id="water-taken" type="number" value="0" readOnly>
+    </label>
+ </div>
+
+  <p><button type="button" id="addButton" class = "AddButton">Add a glass!</button></p>
+
+  <p><button type="button" id="graph-button">Past Data</button></p>
+  <p><button type="button" id="back-button">Back</button></p>
+
+  <script>
+  const backButton = document.getElementById("back-button");
+  const graphButton = document.getElementById("graph-button");
+
+  graphButton.addEventListener("click", 
+  function(){
+	window.location = "../waterGraph.html";
+  });
+
+  backButton.addEventListener("click", 
+  function(){
+	window.location = "../GradientPage.html";
+  });
+  </script>
+
+</div>
+  <script src="water.js"></script>

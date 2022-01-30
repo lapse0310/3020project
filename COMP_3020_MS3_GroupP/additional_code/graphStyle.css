@@ -1,0 +1,34 @@
+.display {
+    overflow: hidden;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 45vw;
+    height: 97vh;
+    margin:auto;
+    position: relative;
+  }
+
+  .display2 {
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    width: 66%;
+    height: 27%;
+    display: inline-block;
+  }
+
+  #centred {
+    text-align: center;
+  }
+
+  button {
+    border: none;
+    outline: 0;
+    display: inline-block;
+    padding: 8px;
+    color: white;
+    background-color: #000;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+  }

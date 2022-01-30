@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        <link rel="stylesheet" href="gradientStyle.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+
+    <body id="background">
+        <div class="wrapper">
+
+            <span id="water" class="clickable dot" title="Water Goal Unfulfilled">
+                <div id="waterGoal" class="clickable textbox">
+                    <p id = "waterText" class="textboxText">
+                        You still need 
+                    </p>
+                </div>
+                <img src="Fireworks.gif" class = "disGIF" id = "waterDone"></img>
+            </span>
+            <span id="steps" class="clickable dot" title="Step Goal Unfulfilled">
+                <div id="stepGoal" class="clickable textbox">
+                    <p id = "stepText" class="textboxText">
+                        You still need 
+                    </p>
+                </div>
+                <img src="Fireworks.gif" class = "disGIF" id = "stepDone"></img>
+            </span>
+            <span id="levels" class="clickable dot" title="Levels Goal Unfulfilled">
+                <div id="levelGoal" class="clickable textbox">
+                    <p id = "levelText" class="textboxText">
+                        You still need to walk up 
+                    </p>
+                </div>
+                <img src="Fireworks.gif" class = "disGIF" id = "levelDone"></img>
+            </span>
+            <span id="meds" class="clickable dot" title="Medication Must Be Taken">
+                <div id="medGoal" class="clickable textbox">
+                    <p id = "medText" class="textboxText">
+                        You have medicine to take and log
+                    </p>
+                </div>
+                <img src="Fireworks.gif" class = "disGIF" id = "medDone"></img>
+            </span>
+
+            <!-- for all of these textboxes, make them children of their respective dots, then use % coordinates (maybe remove transparency) -->
+            <div id="menu">
+                <h1>Menu</h1>
+                <!-- <h2 class = "clickable" ><a href = "temp.html">Steps</a></h2>
+                        <h2 class = "clickable"> <a href = "temp.html">Water</a></h2>
+                        <h2 class = "clickable"> <a href = "temp.html">Levels</a></h2>
+                        <h2 class = "clickable"> <a href = "medication_html.html">Medication</a></h2>
+                        <h2 class = "clickable"> <a href = "temp.html">Prototype Writeup</a></h2> -->
+
+				<div class="display">
+					<button class="clickable menuProf" id="menuProfile"><img src="profile.png">
+					<h2 id="user-name">Jane Doe</h1>
+				</div>
+
+                <button class="clickable menuBut" id="menuMed">Medication</button>
+                <button class="clickable menuBut" id="menuStep">Steps</button>
+                <button class="clickable menuBut" id="menuLevel">Levels</button>
+                <button class="clickable menuBut" id="menuWater">Water</button>
+				<button class="clickable menuBut" id="menuGoals">Goals</button>
+            </div>
+            <a class="clickable" id="menuIcon">
+                <img src="menu-icon-19339.png" width="350" alt="Menu" title="Menu"/>
+            </a>
+
+        </div>
+
+        <!--use href to link to menu, or mayby script-->
+
+
+        <script>
+            
+
+            let doNothing = false;
+            document.getElementById("menu").style.display = "none";
+            document.getElementById("waterGoal").style.display = "none";
+            document.getElementById("stepGoal").style.display = "none";
+            document.getElementById("levelGoal").style.display = "none";
+            document.getElementById("medGoal").style.display = "none";
+            document.getElementById("waterDone").style.visibility = "hidden";
+            document.getElementById("stepDone").style.visibility = "hidden";
+            document.getElementById("levelDone").style.visibility = "hidden";
+            document.getElementById("medDone").style.visibility = "hidden";
+
+            function resetPage() {
+              var element = document.getElementById("menu");
+              if (element)element.addEventListener("mouseup", function(){doNothing=true;})//if you click on the menu while it is open, it doesn't disappear
+              if(!doNothing)
+              {
+                var element = document.getElementById("menu");
+                if (element) {
+                    element.setAttribute("id", "menuBye");
+                }
+              }
+              document.getElementById("waterGoal").style.display = "none";
+              document.getElementById("stepGoal").style.display = "none";
+              document.getElementById("levelGoal").style.display = "none";
+              document.getElementById("medGoal").style.display = "none";
+              document.getElementById("menuIcon").style.display = "block";
+               
+              doNothing = false;
+            }
+
+            function openMenu() {
+                var element = document.getElementById("menuBye");
+                if (element) {
+                    element.setAttribute("id", "menu");
+                    document.getElementById("menu").style.display = "block";
+                    document.getElementById("menuIcon").style.display = "none";
+                }
+            }
+
+            function displayWater() {
+                document.getElementById("waterGoal").style.display = "block";
+                console.log(localStorage.getItem("USER_WATER_GOAL") - localStorage.getItem("USER_WATER_TAKEN"))
+                document.getElementById("waterText").innerHTML = "You still need " + (localStorage.getItem("USER_WATER_GOAL") - localStorage.getItem("USER_WATER_TAKEN")) + " glasses of water to complete today's goal.";
+            }
+            function displaySteps() {
+                document.getElementById("stepGoal").style.display = "block";
+                document.getElementById("stepText").innerHTML = "You still need " + (localStorage.getItem("USER_STEP_GOAL")) + " steps to complete today's goal.";
+            }
+            function displayLevel() {
+                document.getElementById("levelGoal").style.display = "block"; 
+                document.getElementById("levelText").innerHTML = "You still need to walk up " + localStorage.getItem("USER_LEVEL_GOAL") + " floors to complete today's goal.";
+            }
+            function displayMeds() {
+                document.getElementById("medGoal").style.display = "block";
+            }
+
+            function toMed() {
+                window.location = "medication_html.html";
+            }
+            function toStep() {
+                window.location = "webpages/steps.html"
+            }
+            function toLevel() {
+                window.location = "webpages/floors.html"
+            }
+            function toWater() {
+                window.location = "1218/water.html"
+            }
+			function toProfile() {
+				window.location = "../index.html";
+			}
+			function toGoals() {
+				window.location = "../index.html";
+			}
+
+            var fullfilled = false;
+            // set based on whether a goal is met
+            // information from other pages needed
+
+
+            // hides dot if goal is met, make for each metric
+            if ((localStorage.getItem("USER_WATER_GOAL") - localStorage.getItem("USER_WATER_TAKEN")) <= 0 && !(localStorage.getItem("USER_WATER_STATUS") === "true2")) {
+                document.getElementById("water").style.visibility = "hidden";
+                document.getElementById("waterDone").style.visibility = "visible";
+                document.getElementById("water").title = "Congrats!";
+                document.getElementById("water").className = "dot";
+                localStorage.setItem("USER_WATER_STATUS", "true2");
+                document.getElementById("menuWater").style.borderColor = "rgb(0,150,0)";
+                document.getElementById("menuWater").style.borderWidth = '5px';
+            } else if (localStorage.getItem("USER_WATER_STATUS") === "true2")
+            {
+                document.getElementById("water").style.visibility = "hidden";
+                document.getElementById("menuWater").style.borderColor = "rgb(0,150,0)";
+                document.getElementById("menuWater").style.borderWidth = '5px';
+            }
+            else {
+                document.getElementById("water").addEventListener('click', displayWater);
+            } fullfilled = false;
+
+            if(localStorage.getItem("USER_STEP_GOAL") == 0)
+            {
+                document.getElementById("steps").style.visibility = "hidden";
+                document.getElementById("menuStep").style.borderColor = "rgb(0,150,0)";
+                document.getElementById("menuStep").style.borderWidth = '5px';
+            }
+            else {
+                document.getElementById("steps").addEventListener('click', displaySteps);
+            }
+
+            var fullfilled = false;
+            // set based on whether a goal is met
+            // information from other pages needed
+
+            // hides dot if goal is met, make for each metric
+
+            if (localStorage.getItem("USER_LEVEL_GOAL") == 0)
+            {
+                document.getElementById("levels").style.visibility = "hidden";
+                document.getElementById("menuLevel").style.borderColor = "rgb(0,150,0)";
+                document.getElementById("menuLevel").style.borderWidth = '5px';
+            }
+            else {
+                document.getElementById("levels").addEventListener('click', displayLevel);
+            } fullfilled = false;
+
+            if (localStorage.getItem("USER_MED_STATUS") === "true") {
+                document.getElementById("medDone").style.visibility = "visible";
+                document.getElementById("meds").style.visibility = "hidden";
+                document.getElementById("meds").title = "Congrats!";
+                document.getElementById("meds").className = "dot";
+                localStorage.setItem("USER_MED_STATUS", "true2");
+                document.getElementById("menuMed").style.borderColor = "rgb(0,150,0)";
+                document.getElementById("menuMed").style.borderWidth = '5px';
+            } 
+            else if(localStorage.getItem("USER_MED_STATUS") === "true2")
+            {
+                document.getElementById("meds").style.visibility = "hidden";
+                document.getElementById("menuMed").style.borderColor = "rgb(0,150,0)";
+                document.getElementById("menuMed").style.borderWidth = '5px';
+            }
+            else {
+                document.getElementById("meds").addEventListener('click', displayMeds);
+            }
+            document.getElementById("menuIcon").addEventListener("click", openMenu);
+
+            document.getElementById("menuMed").addEventListener("click", toMed);
+            document.getElementById("menuStep").addEventListener("click", toStep);
+            document.getElementById("menuLevel").addEventListener("click", toLevel);
+            document.getElementById("menuWater").addEventListener("click", toWater);
+			document.getElementById("menuProfile").addEventListener("click", toProfile);
+			document.getElementById("menuGoals").addEventListener("click", toGoals);
+
+            document.getElementById("medGoal").addEventListener("click", toMed);
+            document.getElementById("waterGoal").addEventListener("click", toWater);
+            document.getElementById("levelGoal").addEventListener("click", toLevel);
+            document.getElementById("stepGoal").addEventListener("click", toStep);
+
+            document.getElementById("background").addEventListener('mouseup', resetPage);
+        </script>
+    </body>
+</html>

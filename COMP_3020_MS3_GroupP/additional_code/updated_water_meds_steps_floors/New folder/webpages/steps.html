@@ -1,0 +1,84 @@
+<link rel="stylesheet" href="style.css">
+
+<div class="display">
+    <img src="shoes.jpg" style="width:50%">
+    <h1 id="page-name">Steps</h1>
+	<h2 id="steps-left">2 Steps Left to Take!</h2>
+
+    <div class="field">
+        <label>
+            Daily steps goal: <input id="daily-steps" type="number" value="6000" readOnly>
+        </label>
+    </div>
+
+    <div class="field">
+        <label>
+            Total steps today: <input id="steps-today" type="number" value="0" readOnly>
+        </label>
+    </div>
+
+
+<p><button type="button" id="graph-button">Past Data</button></p>
+<p><button type="button" id="back-button">Back</button></p>
+
+</div>
+
+<script>
+	const stepsToday = document.getElementById("steps-today");
+    const stepsLeftField = document.getElementById("steps-left");
+    const dailyStepsField = document.getElementById("daily-steps");
+    const backButton = document.getElementById("back-button");
+	const graphButton = document.getElementById("graph-button");
+    let stepsCompleteFlag = false;
+
+	dailyStepsField.setAttribute('value', localStorage.getItem("USER_STEP_GOAL"));
+	stepsLeftField.innerHTML = (dailyStepsField.value) + " Steps Left to Take!";
+
+	if(localStorage.getItem("USER_STEP_GOAL")==null)
+	{
+		stepsToday.setAttribute('value', 0);
+		dailyStepsField.setAttribute('value', 5000);
+		stepsLeftField.innerHTML = "5000 Steps Left to Take!";
+	}
+
+    backButton.addEventListener("click",
+        function () {
+            window.location = "../GradientPage.html"
+        });
+
+	graphButton.addEventListener("click", 
+		function(){
+			window.location = "../stepGraph.html";
+		});
+
+    /*editButton.addEventListener("click",
+        function () {
+            if (editButton.innerHTML != "Done") {
+                stepsLeftField.readOnly = false;
+                stepsLeftField.style.backgroundColor = "#dddbdb";
+                dailyStepsField.readOnly = false;
+                dailyStepsField.style.backgroundColor = "#dddbdb";
+                editButton.innerHTML = "Done";
+            } else {
+                stepsLeftField.readOnly = true;
+                stepsLeftField.style.backgroundColor = "";
+                dailyStepsField.readOnly = true;
+                dailyStepsField.style.backgroundColor = "";
+                pillsTaken.style.backgroundColor = "";
+                editButton.innerHTML = "Edit" + ' <img src="edit.png" width="12" height=auto>';
+
+                if (stepsLeftField.value > dailyStepsField.value) {
+                    window.alert("Please enter a valid number!");
+                }
+            }
+
+        });*/
+
+    if (stepsLeftField.value == 0) {
+        stepsCompleteFlag = true;
+    }
+
+    window.onload = function () {
+        localStorage.setItem("USER_STEPS_STATUS", stepsCompleteFlag);
+    }
+</script>
